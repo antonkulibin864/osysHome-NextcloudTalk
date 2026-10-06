@@ -1,0 +1,87 @@
+{% extends "layouts/module_admin.html" %}
+{% block breadcrumb %}
+<li class="breadcrumb-item"><a href="NextcloudTalk">Nextcloud Talk</a></li>
+{% endblock %}
+{% block module %}
+
+{% if message %}
+<div class="alert alert-info">{{ message }}</div>
+{% endif %}
+
+<form method="POST">
+    {{ form.hidden_tag() }}
+
+    <h5>Подключение</h5>
+    <div class="mb-3">
+        <label class="form-label" for="host">Адрес Nextcloud</label>
+        {{ form.host(class="form-control", id="host", placeholder="https://192.168.1.251") }}
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="user">Пользователь / бот</label>
+        {{ form.user(class="form-control", id="user") }}
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="password">Пароль или app-token</label>
+        {{ form.password(class="form-control", id="password", type="password") }}
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="room">Комната по умолчанию (токен)</label>
+        {{ form.room(class="form-control", id="room", placeholder="fmza3yi6") }}
+    </div>
+    <div class="form-check mb-3">
+        {{ form.verify_ssl(class="form-check-input", id="verify_ssl") }}
+        <label class="form-check-label" for="verify_ssl">Проверять SSL-сертификат</label>
+    </div>
+
+    <h5>Уведомления</h5>
+    <div class="form-check mb-2">
+        {{ form.forward_say(class="form-check-input", id="forward_say") }}
+        <label class="form-check-label" for="forward_say">Пересылать сообщения say()</label>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="min_say_level">Мин. уровень say</label>
+        {{ form.min_say_level(class="form-control", id="min_say_level", type="number", min="0") }}
+    </div>
+    <div class="form-check mb-2">
+        {{ form.forward_notify(class="form-check-input", id="forward_notify") }}
+        <label class="form-check-label" for="forward_notify">Пересылать уведомления addNotify()</label>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="min_notify_category">Мин. категория уведомлений</label>
+        {{ form.min_notify_category(class="form-select", id="min_notify_category") }}
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="notify_room">Комната для уведомлений (пусто = основная)</label>
+        {{ form.notify_room(class="form-control", id="notify_room") }}
+    </div>
+
+    <h5>Команды</h5>
+    <div class="form-check mb-2">
+        {{ form.command_enabled(class="form-check-input", id="command_enabled") }}
+        <label class="form-check-label" for="command_enabled">Обрабатывать команды</label>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="command_room">Комната для команд (пусто = основная)</label>
+        {{ form.command_room(class="form-control", id="command_room") }}
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="command_poll_interval">Интервал опроса, сек</label>
+        {{ form.command_poll_interval(class="form-control", id="command_poll_interval", type="number", min="1", max="60") }}
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="commands">Команды (JSON)</label>
+        {{ form.commands(class="form-control font-monospace", id="commands", rows="12") }}
+        <div class="form-text">
+            Список объектов: <code>name</code> (без «/»), <code>description</code>, <code>code</code> (Python).
+            В коде доступны: <code>self</code>, <code>plugin</code>, <code>message</code>, <code>room</code>,
+            <code>user</code>, <code>args</code>, <code>logger</code>, а также <code>setProperty</code>,
+            <code>getProperty</code>, <code>callMethod</code>, <code>say</code>, <code>addNotify</code> и <code>print</code>.
+            Пример: <code>[{"name":"status","description":"Статус","code":"print(getProperty('SystemVar.LastSay'))"}]</code>
+        </div>
+    </div>
+
+    <button type="submit" name="action" value="save" class="btn btn-primary">Сохранить</button>
+    <button type="submit" name="action" value="test" class="btn btn-secondary">Отправить тест</button>
+</form>
+
+{% endblock %}
