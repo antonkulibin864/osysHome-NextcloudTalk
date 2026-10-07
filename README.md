@@ -1,6 +1,6 @@
 # Плагин NextcloudTalk для osysHome
 
-https://github.com/antonkulibin864/osysHome-NextcloudTalk/blob/main/static/NextcloudTalk.png
+
 
 Интеграция с Nextcloud Talk:
 - отправка `say(...)` в комнату (action `say`)
