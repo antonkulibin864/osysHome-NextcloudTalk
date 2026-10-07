@@ -1,6 +1,6 @@
 # Плагин NextcloudTalk для osysHome
 
-
+![NextcloudTalk ICON](static/NextcloudTalk.png)
 
 Интеграция с Nextcloud Talk:
 - отправка `say(...)` в комнату (action `say`)
