@@ -95,6 +95,9 @@ class NextcloudTalk(BasePlugin):
             verify=self._verify(),
             timeout=int(timeout) + 15,
         )
+        if resp.status_code == 304:
+            # Long-poll timed out: no new messages. This is normal, not an error.
+            return []
         if resp.status_code >= 300:
             self.logger.error("NextcloudTalk: чтение чата HTTP %s %s", resp.status_code, resp.text[:200])
             return []
